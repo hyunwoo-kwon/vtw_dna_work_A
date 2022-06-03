@@ -2,10 +2,12 @@ package com.vtw.dna.movie.controller;
 
 import com.vtw.dna.movie.Movie;
 import com.vtw.dna.movie.repository.MovieRepository;
+import com.vtw.dna.movie.service.MovieService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class MovieController {
 
     @Autowired private MovieRepository movieRepository;
+    @Autowired private MovieService movieService;
 
     @GetMapping
     public List<Movie> list(){
@@ -29,5 +32,12 @@ public class MovieController {
             }
         }
         return movieList;
+    }
+
+    @PostMapping("/insert")
+    public void insertMovie(Movie movieData){
+
+        movieService.insertMovie(movieData);
+
     }
 }
