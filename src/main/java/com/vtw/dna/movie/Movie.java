@@ -1,5 +1,7 @@
 package com.vtw.dna.movie;
 
+import com.vtw.dna.discountCondition.DiscountCondition;
+import com.vtw.dna.discountPolicy.DiscountPolicy;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,24 +24,32 @@ public class Movie {
 
     private String detail;  //상세정보
 
+    private Integer fee; // 가격
+
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "movieSeq", referencedColumnName="movieSeq", nullable = false, insertable = false, updatable = false)
+    private DiscountPolicy discountPolicy;
+
     public Movie() {
 
     }
 
     //생성자
-    public Movie(String krName, String enName, String releaseDate, String detail) {
+    public Movie(String krName, String enName, String releaseDate, String detail, Integer fee) {
         this.krName = krName;
         this.enName = enName;
         this.releaseDate = releaseDate;
         this.detail = detail;
+        this.fee = fee;
     }
 
     //수정
-    public void updateMovie(String krName, String enName, String releaseDate, String detail){
+    public void updateMovie(String krName, String enName, String releaseDate, String detail, Integer fee){
         this.krName = krName;
         this.enName = enName;
         this.releaseDate = releaseDate;
         this.detail = detail;
+        this.fee = fee;
     }
 
     //삭제
@@ -52,6 +62,7 @@ public class Movie {
         this.enName = newMovie.enName;
         this.releaseDate = newMovie.releaseDate;
         this.detail = newMovie.detail;
+        this.fee = newMovie.fee;
         return this;
     }
 }

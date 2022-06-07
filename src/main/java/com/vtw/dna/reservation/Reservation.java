@@ -20,7 +20,7 @@ public class Reservation {
 
     private Long movieSeq;       //영화 시퀀스
 
-    private int headCount;      //예매인원
+    private Integer headCount;      //예매인원
 
     private Long discountPolicySeq;    //할인 정책 시퀀스
 
@@ -43,7 +43,7 @@ public class Reservation {
     }
 
     //생성자
-    public void Reservation(String userId, int headCount, Long discountPolicySeq, Long discountConditionSeq){
+    public void Reservation(String userId, Integer headCount, Long discountPolicySeq, Long discountConditionSeq){
         this.userId = userId;
         this.headCount = headCount;
         this.discountPolicySeq = discountPolicySeq;
@@ -51,7 +51,7 @@ public class Reservation {
     }
 
     //수정
-    public void updateReservation(String userId, int headCount, Long discountPolicySeq, Long discountConditionSeq){
+    public void updateReservation(String userId, Integer headCount, Long discountPolicySeq, Long discountConditionSeq){
         this.userId = userId;
         this.headCount = headCount;
         this.discountPolicySeq = discountPolicySeq;

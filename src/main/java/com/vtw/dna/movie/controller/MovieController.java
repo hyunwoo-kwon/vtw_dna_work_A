@@ -35,9 +35,9 @@ public class MovieController {
     }
 
     @PostMapping("/insert")
-    public void insertMovie(Movie movieData){
+    public void insertMovie(Movie movie){
 
-        movieService.insertMovie(movieData);
+        movieService.insertMovie(movie);
 
     }
 }
