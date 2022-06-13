@@ -7,4 +7,6 @@ import org.springframework.data.repository.Repository;
 
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
+    Screen findByScreenSeq(Long screenSeq);
+
 }

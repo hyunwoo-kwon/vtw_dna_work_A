@@ -32,7 +32,8 @@ public class DiscountCondition {
     @JoinColumn(name = "discountPolicySeq", referencedColumnName="discountPolicySeq", nullable = false, insertable = false, updatable = false)
     private DiscountPolicy discountPolicy;
 
-    public boolean calcDiscountFee(Integer screenRound, String screenDate, Integer screenStartDate) throws ParseException {
+    public boolean conditionCheck(Integer screenRound, String screenDate, Integer screenStartDate) throws ParseException {
+        System.out.println("##################DiscountCondition = " + screenRound + ", " + screenDate + ", " + screenStartDate);
 
         boolean returnDiscountYN = false;
 
