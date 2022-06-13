@@ -18,6 +18,8 @@ public class Screen {
 
     private Long movieSeq;    //영화 시퀀스
 
+    private Long screenRoomSeq;  //상영관
+    
     private String screenDate;  //상영일
 
     private Integer screenRound; //상영회차
@@ -26,13 +28,19 @@ public class Screen {
 
     private Integer endTime;     //상영종료시간
     
-    @Transient private Integer basicFee = 0;   //1인 기본요금
+    @Transient private Integer basicFee = 0;    //1인 기본요금
     
     @Transient private Integer discountFee = 0; //할인 비용
+
+    @Transient private Integer totalFee = 0;    //1인 총액
 
     @OneToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "movieSeq", referencedColumnName="movieSeq", nullable = false, insertable = false, updatable = false)
     private Movie movie;
+
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "screenRoomSeq", referencedColumnName="screenRoomSeq", nullable = false, insertable = false, updatable = false)
+    private ScreenRoom screenRoom;
 
     public Screen(){
 
@@ -66,6 +74,8 @@ public class Screen {
         }else{
             this.discountFee = this.movie.getDiscountPolicy().calcDiscountFee(this.screenRound, this.screenDate, this.startTime);
         }
+
+        this.totalFee = this.basicFee - this.discountFee;
     }
 
     //삭제

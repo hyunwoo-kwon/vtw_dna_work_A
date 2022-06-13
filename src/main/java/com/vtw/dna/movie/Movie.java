@@ -1,5 +1,7 @@
 package com.vtw.dna.movie;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.vtw.dna.discountCondition.DiscountCondition;
 import com.vtw.dna.discountPolicy.DiscountPolicy;
 import lombok.Data;

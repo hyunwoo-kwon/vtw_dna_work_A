@@ -25,13 +25,13 @@ public class MovieController {
     public List<Movie> list(){
         List<Movie> movieList = movieRepository.findAll();
         System.out.println("test!@#$");
-        if(movieList.size()>0){
-            for(Movie one : movieList){
-                System.out.println(one);
-
-            }
-        }
-        return movieList;
+//        if(movieList.size()>0){
+//            for(Movie one : movieList){
+//                System.out.println(one);
+//
+//            }
+//        }
+        return null;
     }
 
     @PostMapping("/insert")
