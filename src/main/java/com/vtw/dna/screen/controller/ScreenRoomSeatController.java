@@ -25,9 +25,9 @@ public class ScreenRoomSeatController {
         String tempLow = "0";
 
         for(ScreenRoomSeat one : returnList){
-            if(tempLow!=one.getSeatLow()){
+            if(tempLow!=one.getSeatRow()){
                 System.out.println("");
-                tempLow = one.getSeatLow();
+                tempLow = one.getSeatRow();
             }
 
             if(one.getUseYn().equals("Y")) System.out.printf("□ ");
@@ -52,9 +52,9 @@ public class ScreenRoomSeatController {
     }
 
     @PostMapping("/update")
-    public void updateScreenRoomSeat(Long screenRoomSeq, String seatLow, Integer seatColumn, String useYn){
+    public void updateScreenRoomSeat(Long screenRoomSeq, String seatRow, Integer seatColumn, String useYn){
 
-        screenRoomSeatService.updateScreenRoomSeatByScreenRomSeqAndLowAndColumn(screenRoomSeq, seatLow, seatColumn, useYn);
+        screenRoomSeatService.updateScreenRoomSeatByScreenRomSeqAndLowAndColumn(screenRoomSeq, seatRow, seatColumn, useYn);
 
     }
 

@@ -3,13 +3,15 @@ package com.vtw.dna.movie.controller;
 import com.vtw.dna.movie.Movie;
 import com.vtw.dna.movie.repository.MovieRepository;
 import com.vtw.dna.movie.service.MovieService;
+import com.vtw.dna.screen.ScreenRoom;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,10 +36,28 @@ public class MovieController {
         return null;
     }
 
+    @GetMapping("/selectAll")
+    public Page<Movie> selectAllScreenRoom(@RequestParam("page") int page,
+                                                @RequestParam("size") int size,
+                                                @RequestParam(value = "sortBy", defaultValue = "movieSeq") String sortBy,
+                                                @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
+                                                @RequestParam(value = "filter", defaultValue = "") String filter){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
+
+        return movieService.selectAllMovei(pageable, filter);
+
+    }
+
     @PostMapping("/insert")
     public void insertMovie(Movie movie){
 
         movieService.insertMovie(movie);
 
+    }
+
+    @GetMapping("/{movieSeq}")
+    public Movie find(@PathVariable Long movieSeq) {
+        Movie selectMoive = movieService.selectMovieByMovieSeq(movieSeq);
+        return selectMoive;
     }
 }

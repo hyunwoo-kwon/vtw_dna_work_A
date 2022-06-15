@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ScreenRoomSeatRepository extends JpaRepository<ScreenRoomSeat, Long> {
 
-    List<ScreenRoomSeat> findByScreenRoomSeqOrderBySeatLowAsc(Long screenRoomSeq);
+    List<ScreenRoomSeat> findByScreenRoomSeqOrderBySeatRowAsc(Long screenRoomSeq);
 
-    ScreenRoomSeat findByScreenRoomSeqAndSeatLowAndSeatColumn(Long screenRoomSeq, String seatLow, Integer seatColumn);
+    ScreenRoomSeat findByScreenRoomSeqAndSeatRowAndSeatColumn(Long screenRoomSeq, String seatRow, Integer seatColumn);
 
     ScreenRoomSeat findByScreenRoomSeatSeq(Long screenRoomSeatSeq);
 

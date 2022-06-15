@@ -1,6 +1,5 @@
 package com.vtw.dna.screen;
 
-import com.vtw.dna.discountPolicy.DiscountPolicy;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ public class ScreenRoomSeat {
 
     private Long    screenRoomSeq;  //상영관 시퀀스
 
-    private String  seatLow;        //상영관 자리 행
+    private String seatRow;        //상영관 자리 행
 
     private Integer seatColumn;         //상영관 자리 열
 
@@ -31,9 +30,9 @@ public class ScreenRoomSeat {
     }
 
     //생성자
-    public ScreenRoomSeat(Long screenRoomSeq, String  seatLow, Integer seatColumn, String  useYn){
+    public ScreenRoomSeat(Long screenRoomSeq, String  seatRow, Integer seatColumn, String  useYn){
         this.screenRoomSeq = screenRoomSeq;
-        this.seatLow = seatLow;
+        this.seatRow = seatRow;
         this.seatColumn = seatColumn;
         this.useYn = useYn;
 

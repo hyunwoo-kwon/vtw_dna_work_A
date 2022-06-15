@@ -29,6 +29,8 @@ public class ScreenService {
 
     }
 
+
+
     public Screen selectScreenByScreenSeq(Long screenSeq){
 
         return screenRepository.findByScreenSeq(screenSeq);

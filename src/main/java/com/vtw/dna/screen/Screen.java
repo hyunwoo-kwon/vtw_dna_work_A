@@ -47,8 +47,9 @@ public class Screen {
     }
 
     //생성자
-    public Screen(Long movieSeq, String screenDate, Integer screenRound, Integer startTime, Integer endTime){
+    public Screen(Long movieSeq, Long screenRoomSeq, String screenDate, Integer screenRound, Integer startTime, Integer endTime){
         this.movieSeq = movieSeq;
+        this.screenRoomSeq = screenRoomSeq;
         this.screenDate = screenDate;
         this.screenRound = screenRound;
         this.startTime = startTime;
