@@ -5,6 +5,8 @@ import com.vtw.dna.screen.ScreenRoom;
 import com.vtw.dna.screen.repository.ScreenRepository;
 import com.vtw.dna.screen.repository.ScreenRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +25,9 @@ public class ScreenRoomService {
 
     }
 
-    public List<ScreenRoom> selectAllScreenRoom(){
+    public Page<ScreenRoom> selectAllScreenRoom(Pageable pageable, String filter){
 
-        return screenRoomRepository.findAll();
+        return screenRoomRepository.findAll(pageable);
 
     }
 

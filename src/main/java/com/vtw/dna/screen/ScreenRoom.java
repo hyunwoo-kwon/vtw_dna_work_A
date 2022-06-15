@@ -1,7 +1,5 @@
 package com.vtw.dna.screen;
 
-import com.vtw.dna.discountCondition.DiscountCondition;
-import com.vtw.dna.discountPolicy.DiscountPolicy;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,12 +14,13 @@ public class ScreenRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long    screenRoomSeq;  //상영관 시퀀스
 
-    private String    totalSeatLow;    //상영관 총 행
+    private String totalSeatRow;    //상영관 총 행
 
-    private Integer  totalSetColumn;  //상영관 총 열
+    private Integer totalSeatColumn;  //상영관 총 열
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "screenRoomSeq", referencedColumnName="screenRoomSeq", nullable = false, insertable = false, updatable = false)
+    @OrderBy("seatRow asc, seatColumn asc ")
     private List<ScreenRoomSeat> screenRoomSeatList;
 
     public ScreenRoom() {
@@ -29,16 +28,16 @@ public class ScreenRoom {
     }
 
     //생성자
-    public ScreenRoom(String totalSeatLow, Integer  totalSetColumn){
-        this.totalSeatLow = totalSeatLow;
-        this.totalSetColumn = totalSetColumn;
+    public ScreenRoom(String totalSeatRow, Integer totalSeatColumn){
+        this.totalSeatRow = totalSeatRow;
+        this.totalSeatColumn = totalSeatColumn;
 
     }
 
     //수정
     public void updateScreenRoom(String totalSeatLow, Integer  totalSetColumn){
-        this.totalSeatLow = totalSeatLow;
-        this.totalSetColumn = totalSetColumn;
+        this.totalSeatRow = totalSeatLow;
+        this.totalSeatColumn = totalSetColumn;
 
     }
 

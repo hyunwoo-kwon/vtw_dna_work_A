@@ -1,16 +1,20 @@
 package com.vtw.dna.screen.controller;
 
-import com.vtw.dna.screen.Screen;
 import com.vtw.dna.screen.ScreenRoom;
+import com.vtw.dna.screen.ScreenRoomSeat;
+import com.vtw.dna.screen.form.ScreenRoomForm;
+import com.vtw.dna.screen.service.ScreenRoomSeatService;
 import com.vtw.dna.screen.service.ScreenRoomService;
-import com.vtw.dna.screen.service.ScreenService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -19,28 +23,82 @@ import java.util.List;
 public class ScreenRoomController {
 
     @Autowired private ScreenRoomService screenRoomService;
+    @Autowired private ScreenRoomSeatService screenRoomSeatService;
 
-    @PostMapping("/selectAll")
-    public List<ScreenRoom> selectAllScreenRoom(){
+    @Autowired private ModelMapper modelMapper;
 
-        List<ScreenRoom> returnList = screenRoomService.selectAllScreenRoom();
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//        if(returnList.size()>0){
-//            for(Screen one : returnList){
-//                System.out.println(one);
-//            }
-//        }
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    @GetMapping("/selectAll")
+    public Page<ScreenRoom> selectAllScreenRoom(@RequestParam("page") int page,
+                                                @RequestParam("size") int size,
+                                                @RequestParam(value = "sortBy", defaultValue = "screenRoomSeq") String sortBy,
+                                                @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir,
+                                                @RequestParam(value = "filter", defaultValue = "") String filter){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
 
-        return null;
+        return screenRoomService.selectAllScreenRoom(pageable, filter);
 
     }
 
     @PostMapping("/insert")
-    public void insertScreenRoom(ScreenRoom screenRoom){
+    public void insertScreenRoom(@RequestBody ScreenRoom screenRoom){
 
-        screenRoomService.insertScreenRoom(screenRoom);
+        ScreenRoom insertScreenRoom = screenRoomService.insertScreenRoom(screenRoom);
 
+        screenRoomSeatService.insertScreenRoomSeat(insertScreenRoom.getScreenRoomSeq());
+
+
+    }
+
+    @GetMapping("/{screenRoomSeq}")
+    public ScreenRoomForm.Resonse find(@PathVariable Long screenRoomSeq) {
+        ScreenRoom selectscreenRoom = screenRoomService.selectScreenRoomByScreenRoomSeq(screenRoomSeq);
+
+        if(selectscreenRoom.getScreenRoomSeatList()!=null){
+
+            System.out.println("returnData.getScreenRoomSeatListSeatLow() != null");
+
+            for (ScreenRoomSeat one : selectscreenRoom.getScreenRoomSeatList()){
+                System.out.println("!!data = " + one.getSeatRow() + " "+ one.getSeatColumn());
+            }
+
+        }
+
+        ScreenRoomForm.Resonse returnData = modelMapper.map(selectscreenRoom, ScreenRoomForm.Resonse.class);
+
+        System.out.println("!!@@@###$$$ test");
+        if(returnData.getScreenRoomSeatList()!=null){
+
+            System.out.println("returnData.getScreenRoomSeatListSeatLow() != null");
+
+            for (ScreenRoomSeat one : returnData.getScreenRoomSeatList()){
+                System.out.println("!!data = " + one.getSeatRow() + " "+ one.getSeatColumn());
+            }
+
+        }
+
+
+        System.out.println("!!@@@###$$$ test2");
+        if(returnData.getScreenRoomSeatListSeatLow()!=null){
+
+            System.out.println("returnData.getScreenRoomSeatListSeatLow() != null");
+
+            for (String one : returnData.getScreenRoomSeatListSeatLow()){
+                System.out.println("!!data = " + one);
+            }
+
+        }
+
+        System.out.println("!!@@@###$$$ test3");
+        List<ScreenRoomForm.ResonseList> returnDataList = modelMapper.map(selectscreenRoom.getScreenRoomSeatList(),
+                                                                    new TypeToken<List<ScreenRoomForm.ResonseList>>(){}.getType());
+
+        if (returnDataList != null){
+            for(ScreenRoomForm.ResonseList one : returnDataList){
+                System.out.println("!!data = " + one.getSeatRow() + " "+ one.getSeatColumn());
+            }
+        }
+
+        return returnData;
     }
 
 }

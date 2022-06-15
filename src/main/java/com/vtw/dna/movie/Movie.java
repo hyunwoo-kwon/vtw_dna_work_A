@@ -26,6 +26,8 @@ public class Movie {
 
     private String detail;  //상세정보
 
+    private String imageLocate;  //이미지 정보
+
     private Integer fee; // 가격
 
     @OneToOne(fetch = FetchType.EAGER, optional = true)
@@ -37,11 +39,12 @@ public class Movie {
     }
 
     //생성자
-    public Movie(String krName, String enName, String releaseDate, String detail, Integer fee) {
+    public Movie(String krName, String enName, String releaseDate, String detail, String imageLocate, Integer fee) {
         this.krName = krName;
         this.enName = enName;
         this.releaseDate = releaseDate;
         this.detail = detail;
+        this.imageLocate = imageLocate;
         this.fee = fee;
     }
 

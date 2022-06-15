@@ -24,13 +24,6 @@ public class ScreenController {
     public List<Screen> selectAllScreen(){
 
         List<Screen> returnList = screenService.selectAllScreen();
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//        if(returnList.size()>0){
-//            for(Screen one : returnList){
-//                System.out.println(one);
-//            }
-//        }
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
         return null;
 

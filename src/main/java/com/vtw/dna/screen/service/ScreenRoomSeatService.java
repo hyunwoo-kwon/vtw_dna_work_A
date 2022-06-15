@@ -22,10 +22,10 @@ public class ScreenRoomSeatService {
         ScreenRoom selectScreenRoom = screenRoomService.selectScreenRoomByScreenRoomSeq(screenRoomSeq);
 
         //행 for문
-        char c = selectScreenRoom.getTotalSeatLow().charAt(0);
+        char c = selectScreenRoom.getTotalSeatRow().charAt(0);
 
         for(char i = c; i >='A' ; i--){
-            for(int seati = 1 ; seati <= selectScreenRoom.getTotalSetColumn(); seati++){
+            for(int seati = 1; seati <= selectScreenRoom.getTotalSeatColumn(); seati++){
                 ScreenRoomSeat ins = new ScreenRoomSeat(screenRoomSeq,String.valueOf((char)i),seati,"Y");
                 screenRoomSeatRepository.save(ins);
             }
@@ -59,14 +59,14 @@ public class ScreenRoomSeatService {
     /**
      * 상영관/행/열 검색으로 업데이트
      * @param screenRoomSeq
-     * @param seatLow
+     * @param seatRow
      * @param seatColumn
      * @param useYn
      * @return
      */
-    public ScreenRoomSeat updateScreenRoomSeatByScreenRomSeqAndLowAndColumn(Long screenRoomSeq, String seatLow, Integer seatColumn, String useYn){
+    public ScreenRoomSeat updateScreenRoomSeatByScreenRomSeqAndLowAndColumn(Long screenRoomSeq, String seatRow, Integer seatColumn, String useYn){
 
-        ScreenRoomSeat selectSeat = selectAllScreenRoomSeat( screenRoomSeq, seatLow, seatColumn);
+        ScreenRoomSeat selectSeat = selectAllScreenRoomSeat( screenRoomSeq, seatRow, seatColumn);
 
         selectSeat.updateScreenRoomSeat(useYn);
 
@@ -84,13 +84,13 @@ public class ScreenRoomSeatService {
 
     public ScreenRoomSeat selectAllScreenRoomSeat(Long screenRoomSeq, String seatLow, Integer seatColumn){
 
-        return screenRoomSeatRepository.findByScreenRoomSeqAndSeatLowAndSeatColumn(screenRoomSeq, seatLow, seatColumn);
+        return screenRoomSeatRepository.findByScreenRoomSeqAndSeatRowAndSeatColumn(screenRoomSeq, seatLow, seatColumn);
 
     }
 
     public List<ScreenRoomSeat> selectScreenRoomSeatByscreenRoomSeq(Long screenRoomSeq){
 
-        return screenRoomSeatRepository.findByScreenRoomSeqOrderBySeatLowAsc(screenRoomSeq);
+        return screenRoomSeatRepository.findByScreenRoomSeqOrderBySeatRowAsc(screenRoomSeq);
 
     }
 
